@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:covid_tracker/View/statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:math' as math;
@@ -16,11 +19,16 @@ class _SplashScreenState extends State<SplashScreen>
   late final AnimationController _contoller =
       AnimationController(duration: Duration(seconds: 3), vsync: this)
         ..repeat();
-
-  @override
+void dispose(){
+  super.dispose();
+  _contoller.dispose();
+}
   void initState() {
     // TODO: implement initState
     super.initState();
+    Timer(const Duration(seconds: 3), () {
+      Navigator.push(context, MaterialPageRoute(builder: ((context) => WorldStats())));
+     });
   }
 
   @override
