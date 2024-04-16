@@ -26,4 +26,27 @@ class StatsServices {
       throw Exception("Error: $e");
     }
   }
+
+  Future<List<dynamic>> getCountryDataFromApi() async {
+    try {
+      final response = await http.get(Uri.parse(ApiUrl.CountryStatsAPi));
+
+      if (response.statusCode == 200) {
+        // Parse JSON response
+        var data = jsonDecode(response.body);
+        
+        // Deserialize JSON into WorldStatsModel object
+        return data;
+      } else {
+        // Handle HTTP error status codes
+        throw Exception("Failed to load data: ${response.statusCode}");
+      }
+    } catch (e) {
+      // Handle any other exceptions like network errors, JSON parsing errors, etc.
+      throw Exception("Error: $e");
+    }
+  }
+
+
+
 }
