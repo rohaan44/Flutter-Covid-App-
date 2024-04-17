@@ -1,5 +1,7 @@
 import 'package:covid_tracker/Services/stats_services.dart';
+import 'package:covid_tracker/View/details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -30,9 +32,7 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
                 child: TextField(
                   controller: searchController,
                   onChanged: ((value) {
-                    setState(() {
-                      
-                    });
+                    setState(() {});
                   }),
                   decoration: InputDecoration(
                     hintText: "Search with Country name",
@@ -55,9 +55,7 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     return Center(child: Text('No data available'));
                   } else {
-
-
-                    return _buildCountryList(snapshot.data!,snapshot.data!);
+                    return _buildCountryList(snapshot.data!, snapshot.data!);
                   }
                 },
               ),
@@ -98,34 +96,74 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
     );
   }
 
-  Widget _buildCountryList(List<dynamic> countries,name) {
+  Widget _buildCountryList(List<dynamic> countries, name) {
     return ListView.builder(
       itemCount: countries.length,
       itemBuilder: (context, index) {
         var countryData = countries[index];
         var name = countries[index]['country'];
         if (searchController.text.isEmpty) {
-         return ListTile(
-          leading: 
-            Image(image: NetworkImage(countryData['countryInfo']['flag'])) ,
-          
-          title: Text(countryData['country']),
-          subtitle: Text('Cases: ${countryData['cases']}'),
-        );
-        } else if(name.toLowerCase().contains(searchController.text.toLowerCase() )){
-          return ListTile(
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage(countryData['countryInfo']['flag']),
-          ),
-          title: Text(countryData['country']),
-          subtitle: Text('Cases: ${countryData['cases']}'),
-        );
-        }
-        else{
-          return Container();
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DetailsScreen(
+                            name: countries[index]['country'],
+                            image: countries[index]["countryInfo"]["flag"],
+                            totalCasses: countries[index]["cases"] ?? 0,
+                            active: countries[index]["active"] ?? 0,
+                            todayRecovered: countries[index]["todayRecovered"] ?? 0,
+                            totalRecovered: countries[index]["totalRecovered"] ?? 0,
+                            totalDeaths: countries[index]["deaths"] ?? 0,
+                            critical: countries[index]["critical"] ?? 0,
+                            test: countries[index]["tests"] ?? 0,
 
+                          )));
+            },
+            child: ListTile(
+              leading: Image(
+                height: 50,
+                width:50,
+                  image: NetworkImage(countryData['countryInfo']['flag'])),
+              title: Text(countryData['country'],style: GoogleFonts.montserrat(
+          textStyle: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600
+          )
+        )),
+              subtitle: Text('Cases: ${countryData['cases']}',style: GoogleFonts.montserrat(
+          textStyle: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w500
+          )
+        )),
+            ),
+          );
+        } else if (name
+            .toLowerCase()
+            .contains(searchController.text.toLowerCase())) {
+          return ListTile(
+            leading: Image(
+                height: 50,
+                width:50,
+                  image: NetworkImage(countryData['countryInfo']['flag'])),
+            title: Text(countryData['country'],style: GoogleFonts.montserrat(
+          textStyle: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600
+          )
+        )),
+            subtitle: Text('Cases: ${countryData['cases']}',style: GoogleFonts.montserrat(
+          textStyle: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w500
+          )
+        )),
+          );
+        } else {
+          return Container();
         }
-        
       },
     );
   }

@@ -1,10 +1,8 @@
-import 'dart:async';
 import 'package:covid_tracker/Model/world_states_model.dart';
 import 'package:covid_tracker/Services/stats_services.dart';
 import 'package:covid_tracker/View/countries_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
