@@ -56,14 +56,22 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 child: Card( child: Column(
                   children: [
                     SizedBox(height: 5.h,),
-                    ReusableRow(title: "Cases", value: widget.totalCasses.toString()),
-                    ReusableRow(title: "Recovered", value: widget.totalRecovered.toString()),
-                    ReusableRow(title: "Today Recovered", value: widget.todayRecovered.toString()),
-                    ReusableRow(title: "Deaths", value: widget.totalCasses.toString()),
-                    ReusableRow(title: "Critical", value: widget.critical.toString()),
-                    ReusableRow(title: "Cases", value: widget.active.toString()),
-                    ReusableRow(title: "Test", value: widget.test.toString()),
-                    ReusableRow(title: "Total Deaths", value: widget.totalDeaths.toString())
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15,right: 15),
+                      child: Column(
+                        children: [
+                          ReusableRow(title: "Cases", value: widget.totalCasses.toString()),
+                          ReusableRow(title: "Recovered", value: widget.totalRecovered.toString()),
+                      ReusableRow(title: "Today Recovered", value: widget.todayRecovered.toString()),
+                      ReusableRow(title: "Deaths", value: widget.totalCasses.toString()),
+                      ReusableRow(title: "Critical", value: widget.critical.toString()),
+                      ReusableRow(title: "Cases", value: widget.active.toString()),
+                      ReusableRow(title: "Test", value: widget.test.toString()),
+                      ReusableRow(title: "Total Deaths", value: widget.totalDeaths.toString())
+                        ],
+                      ),
+                    ),
+                    
                   ],
                  
                 ),),
