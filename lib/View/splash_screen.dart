@@ -43,7 +43,7 @@ void dispose(){
                 child: Container(
                   width: 40.w,
                   height: 20.h,
-                  child: Image.asset('images/virus.png'),
+                  child: Image.asset('images/Covid.png'),
                 ),
                 animation: _contoller,
                 builder: (context, Widget? child) {

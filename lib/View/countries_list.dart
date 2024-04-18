@@ -143,23 +143,41 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
         } else if (name
             .toLowerCase()
             .contains(searchController.text.toLowerCase())) {
-          return ListTile(
-            leading: Image(
-                height: 50,
-                width:50,
-                  image: NetworkImage(countryData['countryInfo']['flag'])),
-            title: Text(countryData['country'],style: GoogleFonts.montserrat(
-          textStyle: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w600
-          )
-        )),
-            subtitle: Text('Cases: ${countryData['cases']}',style: GoogleFonts.montserrat(
-          textStyle: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w500
-          )
-        )),
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DetailsScreen(
+                            name: countries[index]['country'],
+                            image: countries[index]["countryInfo"]["flag"],
+                            totalCasses: countries[index]["cases"] ?? 0,
+                            active: countries[index]["active"] ?? 0,
+                            todayRecovered: countries[index]["todayRecovered"] ?? 0,
+                            totalRecovered: countries[index]["totalRecovered"] ?? 0,
+                            totalDeaths: countries[index]["deaths"] ?? 0,
+                            critical: countries[index]["critical"] ?? 0,
+                            test: countries[index]["tests"] ?? 0,
+
+                          )));
+            },child: ListTile(
+              leading: Image(
+                  height: 50,
+                  width:50,
+                    image: NetworkImage(countryData['countryInfo']['flag'])),
+              title: Text(countryData['country'],style: GoogleFonts.montserrat(
+            textStyle: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w600
+            )
+                    )),
+              subtitle: Text('Cases: ${countryData['cases']}',style: GoogleFonts.montserrat(
+            textStyle: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500
+            )
+                    )),
+            ),
           );
         } else {
           return Container();
